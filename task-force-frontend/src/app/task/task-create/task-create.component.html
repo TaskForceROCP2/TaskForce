@@ -1,1 +1,18 @@
-<p>task-create works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <br>
+            <h4>Create a New Task</h4>
+            <label>
+                Title:
+                <input type="text" [(ngModel)]="title">
+            </label>
+            
+            <button class="btn btn-primary" (click)="updateTitle()">Add Task</button>
+            <p>
+                TITLE ENTERED: {{ title }}
+            </p>
+        </div>
+
+    </div>
+</div>

@@ -6,6 +6,7 @@ import { TaskListComponent } from './task-list/task-list.component';
 import { TaskPageComponent } from './task-page/task-page.component';
 import { TaskSearchComponent } from './task-search/task-search.component';
 import { TaskCreateComponent } from './task-create/task-create.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -19,7 +20,8 @@ import { TaskCreateComponent } from './task-create/task-create.component';
     TaskCreateComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   exports: [
     TaskDetailComponent, 
