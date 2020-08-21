@@ -10,9 +10,8 @@ import { Task } from './task';
 export class TaskService {
 
   constructor(private http: HttpClient) { }
-
   addTask(task: Task): Observable<Task> {
-    return this.http.post<Task>(`http://18.217.160.143:8080/todos/${task.id}`, task);
+    return this.http.post<Task>(`http://18.217.160.143:8080/todos`, task);
   }
   
   deleteTask(id: number): Observable<any> {
@@ -36,6 +35,6 @@ export class TaskService {
   }
   
   updateTask(task: Task): Observable<Task> {
-    return this.http.put<Task>(`http://18.217.160.143:8080/todos/`, task);
+    return this.http.put<Task>(`http://18.217.160.143:8080/todos`, task);
   }
 }

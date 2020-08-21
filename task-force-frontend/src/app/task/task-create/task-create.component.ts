@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormsModule, NgModel } from '@angular/forms';
+import { Task } from '../../task';
+import { TaskService } from '../../task.service';
 
 @Component({
   selector: 'app-task-create',
@@ -7,16 +9,29 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./task-create.component.css']
 })
 export class TaskCreateComponent implements OnInit {
-
   title = '';
+ 
+  task = {
+    "completed": false,
+    "createdOn": "",
+    "id": 0,
+    "title": this.title
+  }
 
-  constructor() { }
+  constructor(private taskService: TaskService) { 
+  }
 
   ngOnInit(): void {
+    
   }
 
   updateTitle() {
-    
+    this.task.title = this.title;
+    // console.log(this.task);
+    // console.log(this.title);
+    this.taskService.addTask(this.task).subscribe((response) => {
+      console.log(`Adding ${this.task.title}`);
+    });
   }
 
 }
