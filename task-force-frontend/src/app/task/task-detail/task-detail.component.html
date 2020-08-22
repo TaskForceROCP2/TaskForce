@@ -8,32 +8,7 @@
         <a href="https://getbootstrap.com/docs/4.0/components/card/">here.</a></h6>
       <br>
       <div class="row">
-        <div class="col-auto" *ngFor="let task of tasks" [task]="task">
-          <ng-container *ngIf="task.completed as boolean; then completed; else notCompleted">
-          </ng-container>
-          <ng-template #completed>
-            <div class="card border-success mb-3" style="max-width: 20rem;">
-              <div class="card-header">{{ task.createdOn }}</div>
-              <div class="card-body text-success">
-                <h5 class="card-title">{{ task.title }}</h5>
-                <p class="card-text">Status: Done</p>
-                <button type="button" class="btn btn-info m-1">Update</button>
-                <button type="button" class="btn btn-danger" (click)="deleteTask(task)">Delete</button>
-              </div>
-            </div>
-          </ng-template>
-          <ng-template #notCompleted>
-            <div class="card border-danger mb-3" style="max-width: 20rem;">
-              <div class="card-header">{{ task.createdOn }}</div>
-              <div class="card-body text-danger">
-                <h5 class="card-title">{{ task.title }}</h5>
-                <p class="card-text">Status: Not Done</p>
-                <button type="button" class="btn btn-info m-1">Update</button>
-                <button type="button" class="btn btn-danger" (click)="deleteTask(task)">Delete</button>
-              </div>
-            </div>
-          </ng-template>
-        </div>
+          <app-task-card class="col-auto" *ngFor="let task of tasks$" [task$]="task"></app-task-card>
       </div>
     </div>
   </div>

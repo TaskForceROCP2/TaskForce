@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Task } from '../../task';
 import { TaskService } from '../../task.service';
-import { Router } from '@angular/router';
+import {timer } from 'rxjs';
 
 @Component({
   selector: 'app-task-detail',
@@ -9,26 +9,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./task-detail.component.css']
 })
 export class TaskDetailComponent implements OnInit {
-  tasks: Task[] = [];
+  @Input() tasks$: Task[] = [];
 
-  constructor(private router: Router, private taskService: TaskService) {
-    this.taskService.getTasks().subscribe((tasks) => {
-      this.tasks = tasks;
-    })
-  }
+  constructor(private taskService: TaskService) { }
 
   ngOnInit(): void {
-  }
-
-  deleteTask(task: Task) {
-    this.taskService.deleteTask(task.id).subscribe(() => {
-      console.log("Task deleted successfully.");
-      this.router.navigateByUrl('/', { skipLocationChange: false }).then(() => {
-        this.router.navigate(['/taskDetails']);
-    }); 
-    },
-    err => {
-      console.log("Task not deleted successfully. Error due to: " + err);
+    timer(0, 1000).subscribe(() => {
+      this.taskService.getTasks().subscribe((tasks) => {
+        this.tasks$ = tasks;
+      })
     });
   }
 }
