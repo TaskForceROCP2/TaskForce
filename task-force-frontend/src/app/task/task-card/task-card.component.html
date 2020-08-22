@@ -1,0 +1,40 @@
+<ng-container *ngIf="task$.completed as boolean; then completed; else notCompleted">
+</ng-container>
+<ng-template #completed>
+    <div class="card border-success mb-3 text-center" style="max-width: 20rem;">
+        <div class="card-header">
+            <h5>{{ task$.createdOn }}</h5>
+        </div>
+        <div class="card-body text-success">
+            <h5 class="card-title">{{ task$.title }}</h5>
+        </div>
+        <div class="card-footer">
+            <button type="button" class="btn btn-outline-secondary m-1" (click)="toggleComplete(task$)">Update</button>
+            <button type="button" class="btn btn-outline-danger" (click)="deleteTask(task$)">Delete</button>
+            <div class="form-check">
+                <input type="checkbox" [(ngModel)]="task$.completed" [ngModelOptions]="{standalone: true}"
+                    (click)="toggleComplete(task$)">
+                <label class="form-check-label m-1">Completed?</label>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #notCompleted>
+    <div class="card border-danger mb-3 text-center" style="max-width: 20rem;">
+        <div class="card-header">
+            <h5>{{ task$.createdOn }}</h5>
+        </div>
+        <div class="card-body text-danger">
+            <h5 class="card-title">{{ task$.title }}</h5>
+        </div>
+        <div class="card-footer">
+            <button type="button" class="btn btn-outline-secondary m-1" (click)="toggleComplete(task$)">Update</button>
+            <button type="button" class="btn btn-outline-danger" (click)="deleteTask(task$)">Delete</button>
+            <div class="form-check">
+                <input type="checkbox" [(ngModel)]="task$.completed" [ngModelOptions]="{standalone: true}"
+                    (click)="toggleComplete(task$)">
+                <label class="form-check-label m-1">Completed?</label>
+            </div>
+        </div>
+    </div>
+</ng-template>
