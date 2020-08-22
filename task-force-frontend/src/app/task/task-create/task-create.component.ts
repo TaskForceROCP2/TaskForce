@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule, NgModel } from '@angular/forms';
-import { Task } from '../../task';
 import { TaskService } from '../../task.service';
 
 @Component({
