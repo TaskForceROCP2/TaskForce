@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule, NgModel } from '@angular/forms';
-import { Task } from '../../task';
 import { TaskService } from '../../task.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-task-create',
@@ -31,6 +30,10 @@ export class TaskCreateComponent implements OnInit {
     // console.log(this.title);
     this.taskService.addTask(this.task).subscribe((response) => {
       console.log(`Adding ${this.task.title}`);
+      alert (`${this.task.title} has been added`)
+    },
+    err => {
+      console.log(err);
     });
   }
 

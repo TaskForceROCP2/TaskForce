@@ -1,1 +1,13 @@
-<p>task-search works!</p>
+<!-- <div class="md-form active-pink active-pink-2 mb-3 mt-0">
+    <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+  </div> -->
+
+  <!-- <form class="form-inline">
+    <input class="form-control" type="text" [(ngModel)]="search">
+    <button class="btn btn-primary" >Search</button>
+  </form> -->
+
+  <div class="form">
+    <input type="text" [(ngModel)]="searchVal" placeholder="Search">
+    <button class="btn btn-primary" (click)="searchTask()"><i>Search</i></button>
+  </div>
