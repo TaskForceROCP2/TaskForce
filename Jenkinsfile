@@ -9,7 +9,9 @@ pipeline {
 
       }
       steps {
-        sh '''npm install
+        sh '''cd task-force-frontend
+
+npm install
 
 npm run build'''
       }
