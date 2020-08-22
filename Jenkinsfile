@@ -16,11 +16,9 @@ npm install
 
 npm run build
 
-cd dist
-
 ls
 
-cp dist/task-force-frontend/* /deploy'''
+cp -r dist/task-force-frontend/* /deploy'''
       }
     }
 
