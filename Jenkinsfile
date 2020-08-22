@@ -17,7 +17,7 @@ npm run build
 
 ls
 
-cp dist/task-force-frontend/* /deploy'''
+cp dist/task-force-frontend/* deploy'''
       }
     }
 
