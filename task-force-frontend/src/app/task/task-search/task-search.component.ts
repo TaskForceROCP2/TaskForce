@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { Task } from '../../task';
 import { TaskService } from '../../task.service';
 
@@ -13,7 +11,6 @@ export class TaskSearchComponent implements OnInit {
   task: Task;
   tasks: Task[] = [];
   searchVal = '';
-  results: Task[] =[];
 
   constructor(private taskService: TaskService) { 
   
@@ -21,24 +18,35 @@ export class TaskSearchComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  searchTask() {
-    
-    this.taskService.getTasks().subscribe((tasks) => {
-      this.tasks = tasks;
-    });
+  
+  searchTask() { 
     let x = 0;
-    for (let task in this.tasks) {
-      if (this.task.title === this.searchVal) {
-        this.results[x++] = this.task;
+    let results: any[];
+    console.log(`Searching for ${this.searchVal}`);
+
+    // if (this.searchVal) {
+    this.taskService.getTasks().subscribe((tasks) => {
+        this.tasks = tasks;
+        // console.log(`${this.tasks.length} tasks`);
+        // console.log(results);
+        results = this.filterByValue(this.searchVal);
+        // console.log(results);
+        if (results === undefined || results.length === 0) { 
+          alert(`${this.searchVal} was not found`);
+          this.searchVal = '';
+        } 
+        else console.log(`${results.length} results`);
+      });
+  }
+    
+  filterByValue(myString: String): any[] {
+    let myResults: any[] = [];
+    for (let i = 0; i < this.tasks.length; i++) {
+      // console.log('filtering');
+      if (this.tasks[i].title.toLowerCase().includes(myString.toLowerCase())) {
+        myResults.push(this.tasks[i]);
       }
-    };
-    if (x === 0) { 
-      alert('Task not found');
-      this.searchVal = '';
     }
-    else {
-      // go to card or task page list?
-    }
+    return myResults;
   }
 }
