@@ -21,9 +21,6 @@ export class HomeComponent implements OnInit {
   toggleCreate () {
     return this.addNew = !this.addNew;
   }
-  addNewTask () {
-    return this.addNew = true;
-  }
 
   deleteTasks () {
     this.taskService.deleteAllTasks().subscribe(response => {
