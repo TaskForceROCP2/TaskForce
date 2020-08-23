@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../task.service';
-import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -23,10 +22,10 @@ export class HomeComponent implements OnInit {
   deleteTasks () {
     this.taskService.deleteAllTasks().subscribe(response => {
       console.log(`Response = ${response}`);
-      alert (`All tasks have been deleted!`)
     },
     err => {
       console.log(err);
-    });
+    },
+    () => alert ('All tasks have been deleted!'));
   }
 }

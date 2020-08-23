@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable, of } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Task } from './task';
 
@@ -19,7 +19,8 @@ export class TaskService {
     return this.http.post<Task>(`${BASE_URL}/todos`, task).pipe(
       catchError((error: any) => {
         console.error(error);
-        return of(null);
+        alert (`Task was not added!`);
+        return throwError(error);
       })
     );
   }
@@ -28,7 +29,8 @@ export class TaskService {
     return this.http.delete(`${BASE_URL}/todos/${id}`).pipe(
       catchError((error: any) => {
         console.error(error);
-        return of(null);
+        alert ('Task was not deleted!');
+        return throwError(error);
       })
     );
   }
@@ -37,7 +39,8 @@ export class TaskService {
     return this.http.delete(`${BASE_URL}/todos/truncate`).pipe(
       catchError((error: any) => {
         console.error(error);
-        return of(null);
+        alert ('Tasks were not deleted!');
+        return throwError(error);
       })
     );
   }
@@ -46,7 +49,8 @@ export class TaskService {
     return this.http.get<Task>(`${BASE_URL}/todos/${id}`).pipe(
       catchError((error: any) => {
         console.error(error);
-        return of(null);
+        alert (`Task was not retrieved!`);
+        return throwError(error);
       })
     );
   }
@@ -55,7 +59,8 @@ export class TaskService {
     return this.http.get<Task[]>(`${BASE_URL}/todos`).pipe(
       catchError((error: any) => {
         console.error(error);
-        return of([]);
+        alert ('Tasks were not retrieved!');
+        return throwError(error);
       })
     );
   }
@@ -64,7 +69,8 @@ export class TaskService {
     return this.http.patch(`${BASE_URL}/todos/${id}`, null).pipe(
       catchError((error: any) => {
         console.error(error);
-        return of([]);
+        alert ('Task was not patched!');
+        return throwError(error);
       })
     );
   }
@@ -73,7 +79,8 @@ export class TaskService {
     return this.http.put<Task>(`${BASE_URL}/todos`, task).pipe(
       catchError((error: any) => {
         console.error(error);
-        return of(null);
+        alert ('Task was not updated!');
+        return throwError(error);
       })
     );
   }
