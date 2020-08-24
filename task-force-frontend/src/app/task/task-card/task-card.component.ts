@@ -8,15 +8,24 @@ import { TaskService } from 'src/app/task.service';
   styleUrls: ['./task-card.component.css']
 })
 export class TaskCardComponent implements OnInit {
-  @Input() task$: Task;
+  @Input() task$: Task = null;
+  newTitle$: string = '';
+  updated$: boolean = false;
 
   constructor(private taskService: TaskService) { }
 
   ngOnInit(): void {
+    this.newTitle$ = this.task$.title;
   }
 
-  updateTask(task: Task) {
-    this.taskService.updateTask(task).subscribe(() => {
+  updateTask() {
+    if (this.task$.title === this.newTitle$) {
+      return;
+    }
+
+    this.task$.title = this.newTitle$;
+    this.taskService.updateTask(this.task$).subscribe(() => {
+      this.updated$ = true;
       console.log("Task updated successfully.");
     },
       err => {
@@ -24,16 +33,16 @@ export class TaskCardComponent implements OnInit {
       });
   }
 
-  toggleComplete(task: Task) {
-    if (task.completed) {
-      this.markUncomplete(task);
+  toggleComplete() {
+    if (this.task$.completed) {
+      this.markUncomplete();
     } else {
-      this.markComplete(task);
+      this.markComplete();
     }
   }
 
-  markComplete(task: Task) {
-    this.taskService.patchTask(task.id).subscribe(() => {
+  markComplete() {
+    this.taskService.patchTask(this.task$.id).subscribe(() => {
       console.log("Task marked completed successfully.");
     },
       err => {
@@ -41,9 +50,9 @@ export class TaskCardComponent implements OnInit {
       });
   }
 
-  markUncomplete(task: Task) {
-    task.completed = !task.completed;
-    this.taskService.updateTask(task).subscribe(() => {
+  markUncomplete() {
+    this.task$.completed = !this.task$.completed;
+    this.taskService.updateTask(this.task$).subscribe(() => {
       console.log("Task marked uncompleted successfully.");
     },
       err => {
@@ -51,8 +60,8 @@ export class TaskCardComponent implements OnInit {
       });
   }
 
-  deleteTask(task: Task) {
-    this.taskService.deleteTask(task.id).subscribe(() => {
+  deleteTask() {
+    this.taskService.deleteTask(this.task$.id).subscribe(() => {
       console.log("Task deleted successfully.");
     },
       err => {
