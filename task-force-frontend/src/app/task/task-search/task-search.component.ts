@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 import { Task } from '../../task';
 import { TaskService } from '../../task.service';
 
@@ -9,44 +10,35 @@ import { TaskService } from '../../task.service';
 })
 export class TaskSearchComponent implements OnInit {
   task: Task;
-  tasks: Task[] = [];
+  tasks: Task[];
   searchVal = '';
+  @Output() searchResults = new EventEmitter<Task[]>();
 
-  constructor(private taskService: TaskService) { 
-  
-  }
+  constructor(private taskService: TaskService, public router: Router) { }
 
   ngOnInit(): void {
   }
-  
-  searchTask() { 
-    let x = 0;
-    let results: any[];
-    console.log(`Searching for ${this.searchVal}`);
 
-    // if (this.searchVal) {
-    this.taskService.getTasks().subscribe((tasks) => {
-        this.tasks = tasks;
-        // console.log(`${this.tasks.length} tasks`);
-        // console.log(results);
-        results = this.filterByValue(this.searchVal);
-        // console.log(results);
-        if (results === undefined || results.length === 0) { 
+  searchTask() {
+    this.taskService.searchTask(this.searchVal).subscribe((tasks) => {
+      this.tasks = tasks;
+      console.log(tasks);
+
+
+      if (tasks === undefined || tasks?.length === 0) { 
           alert(`${this.searchVal} was not found`);
           this.searchVal = '';
         } 
-        else console.log(`${results.length} results`);
+        else {
+          console.log(`${tasks.length} results`);
+          if (tasks.length == 1) {
+          // this.searchResults.emit(this.tasks);
+            this.router.navigate(['/', 'taskDetails'], {queryParams: {"search": this.searchVal}});
+          } else if (tasks.length > 1) {
+          // this.searchResults.emit(this.tasks);
+            this.router.navigate(['/', 'tasks'], {queryParams: {"search": this.searchVal}});
+          }
+        } 
       });
-  }
-    
-  filterByValue(myString: String): any[] {
-    let myResults: any[] = [];
-    for (let i = 0; i < this.tasks.length; i++) {
-      // console.log('filtering');
-      if (this.tasks[i].title.toLowerCase().includes(myString.toLowerCase())) {
-        myResults.push(this.tasks[i]);
-      }
-    }
-    return myResults;
   }
 }
