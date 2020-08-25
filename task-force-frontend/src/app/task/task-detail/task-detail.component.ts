@@ -14,11 +14,10 @@ export class TaskDetailComponent implements OnInit {
   constructor(private taskService: TaskService) { }
 
   ngOnInit(): void {
-    // timer(0, 1000).subscribe(() => {
-    //   this.taskService.getTasks().subscribe((tasks) => {
-    //     this.tasks$ = tasks;
-    //   })
-    // });
+    this.refreshTasks();
+  }
+
+  refreshTasks(): void {
     this.taskService.getTasks().subscribe((tasks) => {
       this.tasks$ = tasks;
    });

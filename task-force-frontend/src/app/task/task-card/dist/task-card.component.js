@@ -12,6 +12,7 @@ var TaskCardComponent = /** @class */ (function () {
     function TaskCardComponent(taskService) {
         this.taskService = taskService;
         this.task$ = null;
+        this.notifyParentOfChange = new core_1.EventEmitter();
         this.newTitle$ = '';
         this.updated$ = false;
     }
@@ -40,22 +41,28 @@ var TaskCardComponent = /** @class */ (function () {
         }
     };
     TaskCardComponent.prototype.markComplete = function () {
+        var _this = this;
         this.taskService.patchTask(this.task$.id).subscribe(function () {
+            _this.notifyParentOfChange.emit('Marking Task Complete');
             console.log("Task marked completed successfully.");
         }, function (err) {
             console.log(err);
         });
     };
     TaskCardComponent.prototype.markUncomplete = function () {
+        var _this = this;
         this.task$.completed = !this.task$.completed;
         this.taskService.updateTask(this.task$).subscribe(function () {
+            _this.notifyParentOfChange.emit('Marking Task Uncomplete');
             console.log("Task marked uncompleted successfully.");
         }, function (err) {
             console.log(err);
         });
     };
     TaskCardComponent.prototype.deleteTask = function () {
+        var _this = this;
         this.taskService.deleteTask(this.task$.id).subscribe(function () {
+            _this.notifyParentOfChange.emit('Deleting Task');
             console.log("Task deleted successfully.");
         }, function (err) {
             console.log(err);
@@ -64,6 +71,9 @@ var TaskCardComponent = /** @class */ (function () {
     __decorate([
         core_1.Input()
     ], TaskCardComponent.prototype, "task$");
+    __decorate([
+        core_1.Output()
+    ], TaskCardComponent.prototype, "notifyParentOfChange");
     TaskCardComponent = __decorate([
         core_1.Component({
             selector: 'app-task-card',

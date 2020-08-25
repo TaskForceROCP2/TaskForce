@@ -14,12 +14,10 @@ var TaskDetailComponent = /** @class */ (function () {
         this.tasks$ = [];
     }
     TaskDetailComponent.prototype.ngOnInit = function () {
+        this.refreshTasks();
+    };
+    TaskDetailComponent.prototype.refreshTasks = function () {
         var _this = this;
-        // timer(0, 1000).subscribe(() => {
-        //   this.taskService.getTasks().subscribe((tasks) => {
-        //     this.tasks$ = tasks;
-        //   })
-        // });
         this.taskService.getTasks().subscribe(function (tasks) {
             _this.tasks$ = tasks;
         });
