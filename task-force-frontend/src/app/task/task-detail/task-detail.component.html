@@ -1,13 +1,5 @@
 <div class="container">
-  <div class="row">
-    <div class="col">
-      <br>
-      <h1 class="text-center">All Task Details</h1>
-      <br>
-      <br>
-      <div class="row">
-          <app-task-card class="col-auto" *ngFor="let task of tasks$" [task$]="task" (notifyParentOfChange)="refreshTasks()"></app-task-card>
-      </div>
-    </div>
+  <div class="row-auto">
+      <app-task-card class="col-auto" *ngFor="let task of tasks$" [task$]="task"></app-task-card>
   </div>
 </div>

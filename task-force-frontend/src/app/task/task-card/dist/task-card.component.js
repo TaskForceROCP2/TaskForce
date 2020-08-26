@@ -9,10 +9,10 @@ exports.__esModule = true;
 exports.TaskCardComponent = void 0;
 var core_1 = require("@angular/core");
 var TaskCardComponent = /** @class */ (function () {
-    function TaskCardComponent(taskService) {
+    function TaskCardComponent(taskService, router) {
         this.taskService = taskService;
+        this.router = router;
         this.task$ = null;
-        this.notifyParentOfChange = new core_1.EventEmitter();
         this.newTitle$ = '';
         this.updated$ = false;
     }
@@ -41,19 +41,15 @@ var TaskCardComponent = /** @class */ (function () {
         }
     };
     TaskCardComponent.prototype.markComplete = function () {
-        var _this = this;
         this.taskService.patchTask(this.task$.id).subscribe(function () {
-            _this.notifyParentOfChange.emit('Marking Task Complete');
             console.log("Task marked completed successfully.");
         }, function (err) {
             console.log(err);
         });
     };
     TaskCardComponent.prototype.markUncomplete = function () {
-        var _this = this;
         this.task$.completed = !this.task$.completed;
         this.taskService.updateTask(this.task$).subscribe(function () {
-            _this.notifyParentOfChange.emit('Marking Task Uncomplete');
             console.log("Task marked uncompleted successfully.");
         }, function (err) {
             console.log(err);
@@ -61,19 +57,18 @@ var TaskCardComponent = /** @class */ (function () {
     };
     TaskCardComponent.prototype.deleteTask = function () {
         var _this = this;
-        this.taskService.deleteTask(this.task$.id).subscribe(function () {
-            _this.notifyParentOfChange.emit('Deleting Task');
-            console.log("Task deleted successfully.");
-        }, function (err) {
-            console.log(err);
-        });
+        if (confirm("Are you sure you want to delete this task?")) {
+            this.taskService.deleteTask(this.task$.id).subscribe(function () {
+                console.log("Task deleted successfully.");
+                _this.router.navigate(['/', 'tasks']);
+            }, function (err) {
+                console.log(err);
+            });
+        }
     };
     __decorate([
         core_1.Input()
     ], TaskCardComponent.prototype, "task$");
-    __decorate([
-        core_1.Output()
-    ], TaskCardComponent.prototype, "notifyParentOfChange");
     TaskCardComponent = __decorate([
         core_1.Component({
             selector: 'app-task-card',
