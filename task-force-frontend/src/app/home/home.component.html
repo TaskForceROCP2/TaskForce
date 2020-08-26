@@ -2,17 +2,15 @@
     <div class="row">
       <div class="col-xs-6">
         <br>
-        <!-- <h3>Home Page Component</h3>
-        <br> -->
-        <h3>NEW FORKED REPO  _______  What do you want to do?</h3>
+        
+        <h3>What do you want to do?</h3>
+
         <br>
-        <!-- <h6>Could our "Tasks" Link in the navbar be an <a href="https://ng-bootstrap.github.io/#/components/dropdown/examples">ng-bootstrap Dropdown</a> 
-            that says Tasks but has options for: </h6> -->
+       
             <ul>
               <button [routerLink]="['/tasks']" type="btn btn-secondary" id="view">View Task List</button>
               <br><br>
-              <!-- <button [routerLink]="['/taskDetails']" type="btn btn-secondary" id="create">Create a New Task</button> -->
-              <button type="btn btn-secondary" (click)="addNewTask()">Create a New Task</button>
+              <button type="btn btn-secondary" (click)="toggleCreate()">Create a New Task</button>
               <br><br>
               <button [routerLink]="['/']" type="btn btn-secondary" id="deleteAll" (click)="deleteTasks()">Delete All Tasks</button>
               <br><br>

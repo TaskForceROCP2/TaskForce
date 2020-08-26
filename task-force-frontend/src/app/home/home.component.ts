@@ -8,7 +8,9 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
   addNew = false;
+  
   constructor(private taskService: TaskService) { 
   }
 
@@ -16,8 +18,8 @@ export class HomeComponent implements OnInit {
     
   }
   
-  addNewTask () {
-    return this.addNew = true;
+  toggleCreate () {
+    return this.addNew = !this.addNew;
   }
 
   deleteTasks () {
