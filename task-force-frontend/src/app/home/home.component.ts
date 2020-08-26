@@ -10,25 +10,27 @@ import { RouterLink } from '@angular/router';
 export class HomeComponent implements OnInit {
 
   addNew = false;
-  
-  constructor(private taskService: TaskService) { 
+
+  constructor(private taskService: TaskService) {
   }
 
   ngOnInit(): void {
-    
+
   }
-  
-  toggleCreate () {
+
+  toggleCreate() {
     return this.addNew = !this.addNew;
   }
 
-  deleteTasks () {
-    this.taskService.deleteAllTasks().subscribe(response => {
-      console.log(`Response = ${response}`);
-      alert (`All tasks have been deleted!`)
-    },
-    err => {
-      console.log(err);
-    });
+  deleteTasks() {
+    if (confirm("Do you Really want to DELETE ALL tasks!")) {
+      this.taskService.deleteAllTasks().subscribe(response => {
+        console.log(`Response = ${response}`);
+        alert(`All tasks have been deleted!`)
+      },
+        err => {
+          console.log(err);
+        });
+    }
   }
 }
