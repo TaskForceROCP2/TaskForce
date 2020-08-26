@@ -9,18 +9,20 @@ exports.__esModule = true;
 exports.TaskDetailComponent = void 0;
 var core_1 = require("@angular/core");
 var TaskDetailComponent = /** @class */ (function () {
-    function TaskDetailComponent(taskService) {
+    function TaskDetailComponent(taskService, route) {
         this.taskService = taskService;
+        this.route = route;
         this.tasks$ = [];
     }
     TaskDetailComponent.prototype.ngOnInit = function () {
-        this.refreshTasks();
-    };
-    TaskDetailComponent.prototype.refreshTasks = function () {
         var _this = this;
-        this.taskService.getTasks().subscribe(function (tasks) {
-            _this.tasks$ = tasks;
-        });
+        var term = this.route.snapshot.queryParamMap.get("search");
+        console.log(term);
+        if (term) {
+            this.taskService.searchTask(term).subscribe(function (task) {
+                _this.tasks$ = task;
+            });
+        }
     };
     __decorate([
         core_1.Input()
