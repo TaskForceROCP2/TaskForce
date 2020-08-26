@@ -17,6 +17,13 @@ export class TaskSearchComponent implements OnInit {
   constructor(private taskService: TaskService, public router: Router) { }
 
   ngOnInit(): void {
+    var input = document.getElementById("myInput");
+    input.addEventListener("keyup", function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        document.getElementById("myBtn").click();
+      }
+    });
   }
 
   searchTask() {
