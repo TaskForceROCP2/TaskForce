@@ -33,4 +33,10 @@ export class TaskPageComponent implements OnInit {
     });
   }
 
+  onSelect(task:Task) {
+    this.tasks[0] =task;
+    this.router.navigate(['/', 'taskDetails'], { queryParams: { "search": this.tasks[0].title } })
+
+  }
+
 }
