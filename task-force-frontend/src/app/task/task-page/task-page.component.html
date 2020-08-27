@@ -23,13 +23,13 @@
         <table class="table table-striped">
           <thead>
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">Title</th>
-            <th scope="col">Creation Date</th>
-            <th scope="col">Completed?</th>
+            <th scope="col" class="numCol">#</th>
+            <th scope="col" class="titleCol">Title</th>
+            <th scope="col" class="otherCol">Creation Date</th>
+            <th scope="col" class="otherCol">Completed?</th>
           </tr>
           </thead>
-          <tbody *ngFor="let task of tasks" [task]="task">
+          <tbody *ngFor="let task of tasks" (click)="onSelect(task)" [task]="task">
           <tr>
             <td>{{ task.id}}</td>
             <td>{{ task.title}}</td>
