@@ -34,9 +34,10 @@ cp -r dist/task-force-frontend/* /deploy'''
         expression {
           env.BRANCH_NAME == 'master'
         }
+
       }
       steps {
-        sh 'aws s3 cp /deploy s3://task-force-test --recursive --acl public-read'
+        sh 'aws s3 cp /deploy s3://task-force-duo --recursive --acl public-read'
       }
     }
 
